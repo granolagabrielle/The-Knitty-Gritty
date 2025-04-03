@@ -4,12 +4,14 @@ import { StyleSheet, View } from 'react-native';
 export function Home() {
   return (
     <View style={styles.container}>
-      <Text>Home Screen</Text>
-      <Text>Open up 'src/App.tsx' to start working on your app!</Text>
-      <Button screen="Profile" params={{ user: 'jane' }}>
-        Go to Profile
-      </Button>
-      <Button screen="Settings">Go to Settings</Button>
+      <View style={styles.card}>
+        <Text>Yarn Data</Text>
+        <Text>Text Here</Text>
+      </View>
+      <View style={styles.card}>
+        <Text>Yarn Data</Text>
+        <Text>Text Here</Text>
+      </View>
     </View>
   );
 }
@@ -20,5 +22,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
+    width: '100%',
+  },
+  card: {
+    padding: 20,
+    margin: 10,
+    backgroundColor: '#f9f9f9',
+    borderRadius: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    width: '90%',
   },
 });

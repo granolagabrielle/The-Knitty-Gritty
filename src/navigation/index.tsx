@@ -1,9 +1,6 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { HeaderButton, Text } from '@react-navigation/elements';
-import {
-  createStaticNavigation,
-  StaticParamList,
-} from '@react-navigation/native';
+import { createStaticNavigation, StaticParamList } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Image } from 'react-native';
 import bell from '../assets/bell.png';
@@ -11,15 +8,16 @@ import newspaper from '../assets/newspaper.png';
 import { Home } from './screens/Home';
 import { Profile } from './screens/Profile';
 import { Settings } from './screens/Settings';
-import { Updates } from './screens/Updates';
-import { NotFound } from './screens/NotFound';
+import { YarnInventory } from './screens/YarnInventory';
+import { ProjectsInventory } from './screens/ProjectsInventory';
+import { PatternInventory } from './screens/PatternInventory';
 
 const HomeTabs = createBottomTabNavigator({
   screens: {
     Home: {
       screen: Home,
       options: {
-        title: 'Feed',
+        title: 'Home',
         tabBarIcon: ({ color, size }) => (
           <Image
             source={newspaper}
@@ -32,9 +30,42 @@ const HomeTabs = createBottomTabNavigator({
         ),
       },
     },
-    Updates: {
-      screen: Updates,
+    Yarn: {
+      screen: YarnInventory,
       options: {
+        title: 'Yarn',
+        tabBarIcon: ({ color, size }) => (
+          <Image
+            source={bell}
+            tintColor={color}
+            style={{
+              width: size,
+              height: size,
+            }}
+          />
+        ),
+      },
+    },
+    Patterns: {
+      screen: PatternInventory,
+      options: {
+        title: 'Patterns',
+        tabBarIcon: ({ color, size }) => (
+          <Image
+            source={bell}
+            tintColor={color}
+            style={{
+              width: size,
+              height: size,
+            }}
+          />
+        ),
+      },
+    },
+    Projects: {
+      screen: ProjectsInventory,
+      options: {
+        title: 'Projects',
         tabBarIcon: ({ color, size }) => (
           <Image
             source={bell}
@@ -81,15 +112,6 @@ const RootStack = createNativeStackNavigator({
           </HeaderButton>
         ),
       }),
-    },
-    NotFound: {
-      screen: NotFound,
-      options: {
-        title: '404',
-      },
-      linking: {
-        path: '*',
-      },
     },
   },
 });

@@ -9,7 +9,8 @@
     "newArchEnabled": true,
     "scheme": "theknittygritty",
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.gbennek.The-Knitty-Gritty"
     },
     "android": {
       "adaptiveIcon": {
