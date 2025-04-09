@@ -2,11 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../redux/store';
 
 interface YarnState {
-  items: any[]; // Replace `any[]` with a proper type if you know the structure of your yarn items
+  items: any[];
+  columnNames: string[];
 }
 
 const initialState: YarnState = {
   items: [],
+  columnNames: [],
 };
 
 export const yarnSlice = createSlice({
@@ -14,15 +16,17 @@ export const yarnSlice = createSlice({
   initialState,
   reducers: {
     setYarnItems: (state, action: PayloadAction<any[]>) => {
-      console.log('Setting yarn items:', action.payload); // Log the payload
-      state.items = action.payload; // Update the `items` property
+      state.items = action.payload;
+    },
+    setYarnColumnNames: (state, action: PayloadAction<any[]>) => {
+      state.columnNames = action.payload;
     },
   },
 });
 
-export const { setYarnItems } = yarnSlice.actions;
+export const { setYarnItems, setYarnColumnNames } = yarnSlice.actions;
 
-// Selector to get yarn items from the state
 export const selectYarnItems = (state: RootState) => state.yarn.items;
+export const selectYarnColumnNames = (state: RootState) => state.yarn.columnNames;
 
 export default yarnSlice.reducer;

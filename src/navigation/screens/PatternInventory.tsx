@@ -2,21 +2,21 @@ import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useAppDispatch } from '../../redux/store';
 import { useSelector } from 'react-redux';
-import { selectYarnItems } from '../../redux/yarnSlice';
-import { fetchYarn } from '../../redux/yarnActions';
+import { selectPatternItems } from '../../redux/patternSlice';
 import InventoryItem from '../../components/InventoryItem';
+import { fetchPatterns } from '../../redux/patternActions';
 
 export function PatternInventory() {
   const dispatch = useAppDispatch();
-  const yarnItems = useSelector(selectYarnItems);
+  const patternItems = useSelector(selectPatternItems);
 
   useEffect(() => {
-    dispatch(fetchYarn());
+    dispatch(fetchPatterns());
   }, [dispatch]);
 
   return (
     <View style={styles.container}>
-      {yarnItems.map((item) => (
+      {patternItems.map((item) => (
         <InventoryItem item={item} />
       ))}
     </View>

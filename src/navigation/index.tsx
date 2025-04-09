@@ -11,6 +11,7 @@ import { Settings } from './screens/Settings';
 import { YarnInventory } from './screens/YarnInventory';
 import { ProjectsInventory } from './screens/ProjectsInventory';
 import { PatternInventory } from './screens/PatternInventory';
+import { Form } from './screens/Form';
 
 const HomeTabs = createBottomTabNavigator({
   screens: {
@@ -113,12 +114,21 @@ const RootStack = createNativeStackNavigator({
         ),
       }),
     },
+    Form: {
+      screen: Form,
+      options: ({ route }) => ({
+        headerShown: true,
+        title: route.params?.title || 'Form',
+      }),
+    },
   },
 });
 
 export const Navigation = createStaticNavigation(RootStack);
 
-type RootStackParamList = StaticParamList<typeof RootStack>;
+type RootStackParamList = StaticParamList<typeof RootStack> & {
+  Form: { title: string; columns: string[] };
+};
 
 declare global {
   namespace ReactNavigation {

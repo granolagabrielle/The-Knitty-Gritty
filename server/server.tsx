@@ -1,8 +1,9 @@
 import express, { Application } from 'express';
 import dotenv from 'dotenv';
 import cors from 'cors';
-import path from 'path'; // Import path
+import path from 'path';
 import yarnRouter from './routes/yarnRouter';
+import patternRouter from './routes/patternRouter';
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(express.static('build'));
 
 // Routes
 app.use('/api/yarn', yarnRouter);
+app.use('/api/patterns', patternRouter);
 
 // Catch-all route to serve React app
 app.get('*', (req, res) => {
