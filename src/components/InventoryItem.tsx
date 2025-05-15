@@ -3,8 +3,8 @@ import { StyleSheet, View } from 'react-native';
 
 export default function InventoryItem({ item }) {
   return (
-    <View style={styles.card}>
-      <Text key={item.id}>{item.name}</Text>
+    <View style={styles.card} key={item.id}>
+      <Text>{item.name}</Text>
     </View>
   );
 }

@@ -16,10 +16,7 @@ export function App() {
       <Navigation
         linking={{
           enabled: 'auto',
-          prefixes: [
-            // Change the scheme to match your app's scheme defined in app.json
-            'helloworld://',
-          ],
+          prefixes: ['helloworld://'],
         }}
         onReady={() => {
           SplashScreen.hideAsync();

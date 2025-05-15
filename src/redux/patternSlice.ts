@@ -3,10 +3,12 @@ import type { RootState } from '../redux/store';
 
 interface PatternState {
   items: any[];
+  columnNames: string[];
 }
 
 const initialState: PatternState = {
   items: [],
+  columnNames: [],
 };
 
 export const patternSlice = createSlice({
@@ -14,15 +16,17 @@ export const patternSlice = createSlice({
   initialState,
   reducers: {
     setPatternItems: (state, action: PayloadAction<any[]>) => {
-      console.log('Setting pattern items:', action.payload); // Log the payload
-      state.items = action.payload; // Update the `items` property
+      state.items = action.payload;
+    },
+    setPatternColumnNames: (state, action: PayloadAction<any[]>) => {
+      state.columnNames = action.payload;
     },
   },
 });
 
-export const { setPatternItems } = patternSlice.actions;
+export const { setPatternItems, setPatternColumnNames } = patternSlice.actions;
 
-// Selector to get pattern items from the state
 export const selectPatternItems = (state: RootState) => state.patterns.items;
+export const selectPatternColumnNames = (state: RootState) => state.patterns.columnNames;
 
 export default patternSlice.reducer;

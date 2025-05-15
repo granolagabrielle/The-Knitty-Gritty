@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { AppDispatch } from './store';
 import { setYarnItems, setYarnColumnNames } from './yarnSlice';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL || 'http://localhost:5001';
@@ -22,12 +23,9 @@ export const fetchYarn = () => async (dispatch: any) => {
   }
 };
 
-export const addYarn = (yarn: any) => async (dispatch: any) => {
+export const addYarn = (yarn: any) => async (dispatch: AppDispatch) => {
   try {
-    console.log('Adding yarn:', yarn);
     const response = await axios.post(`${BACKEND_URL}/api/yarn`, yarn);
-
-    console.log('API response:', response.data);
     dispatch(fetchYarn());
   } catch (error) {
     console.error('Error adding yarn:', error);

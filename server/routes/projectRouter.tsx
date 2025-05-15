@@ -3,13 +3,9 @@ import pool from '../modules/pool';
 
 const router = express.Router();
 
-pool.on('connect', () => {
-  console.log('Connected to the database');
-});
-
 router.get('/', (req: Request, res: Response) => {
-  console.log('GET /api/patterns endpoint hit');
-  const queryText = `SELECT * FROM pattern_inventory;`;
+  console.log('GET /api/projects endpoint hit');
+  const queryText = `SELECT * FROM project_inventory;`;
 
   pool
     .query(queryText)
@@ -24,7 +20,7 @@ router.get('/', (req: Request, res: Response) => {
 });
 
 router.get('/db', (req: Request, res: Response) => {
-  const queryText = `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'pattern_inventory';`;
+  const queryText = `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'project_inventory';`;
   pool
     .query(queryText)
     .then((result) => {
@@ -37,11 +33,11 @@ router.get('/db', (req: Request, res: Response) => {
 });
 
 router.post('/', (req: Request, res: Response) => {
-  console.log('POST /api/patterns endpoint hit', req.body);
-  const newPattern = req.body;
-  const queryText = `INSERT INTO pattern_inventory (name) VALUES ($1);`;
+  console.log('POST /api/project endpoint hit');
+  const newProject = req.body;
+  const queryText = `INSERT INTO project_inventory (name) VALUES ($1);`;
   pool
-    .query(queryText, [newPattern.name])
+    .query(queryText, [newProject.name])
     .then(() => {
       res.sendStatus(201);
     })
@@ -50,5 +46,4 @@ router.post('/', (req: Request, res: Response) => {
       res.sendStatus(500);
     });
 });
-
 export default router;

@@ -8,6 +8,7 @@ import InventoryItem from '../../components/InventoryItem';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
 
 export function YarnInventory() {
   const dispatch = useAppDispatch();
@@ -26,6 +27,7 @@ export function YarnInventory() {
     navigation.navigate('Form', {
       title: 'Add Yarn',
       columnNames: yarnColumnNames,
+      type: 'yarn',
     });
   };
 
@@ -33,7 +35,7 @@ export function YarnInventory() {
     <>
       <View style={styles.container}>
         {yarnItems.map((item) => (
-          <InventoryItem item={item} />
+          <InventoryItem item={item} key={item.id} />
         ))}
       </View>
       <CustomButton title={'Add Yarn'} onPress={onPress} />

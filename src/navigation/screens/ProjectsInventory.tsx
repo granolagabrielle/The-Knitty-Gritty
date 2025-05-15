@@ -2,24 +2,43 @@ import React, { useEffect } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useAppDispatch } from '../../redux/store';
 import { useSelector } from 'react-redux';
-import { selectYarnItems } from '../../redux/yarnSlice';
-import { fetchYarn } from '../../redux/yarnActions';
 import InventoryItem from '../../components/InventoryItem';
+import { selectProjectColumnNames, selectProjectItems } from '../../redux/projectSlice';
+import { fetchProjectColumnNames, fetchProjects } from '../../redux/projectActions';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
+import CustomButton from '../../components/CustomButton';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export function ProjectsInventory() {
   const dispatch = useAppDispatch();
-  const yarnItems = useSelector(selectYarnItems);
+  const navigation = useNavigation<NavigationProp>();
+  const projectItems = useSelector(selectProjectItems);
+  const projectColumnNames = useSelector(selectProjectColumnNames);
+
+  type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'ProjectInventory'>;
 
   useEffect(() => {
-    dispatch(fetchYarn());
+    dispatch(fetchProjects());
+    dispatch(fetchProjectColumnNames());
   }, [dispatch]);
 
+  const onPress = () => {
+    navigation.navigate('Form', {
+      title: 'Add Project',
+      columnNames: projectColumnNames,
+      type: 'project',
+    });
+  };
+
   return (
-    <View style={styles.container}>
-      {yarnItems.map((item) => (
-        <InventoryItem item={item} />
-      ))}
-    </View>
+    <>
+      <View style={styles.container}>
+        {projectItems.map((item) => (
+          <InventoryItem item={item} key={item.id} />
+        ))}
+      </View>
+      <CustomButton title={'Add Project'} onPress={onPress} />
+    </>
   );
 }
 
