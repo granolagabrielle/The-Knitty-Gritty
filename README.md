@@ -34,7 +34,7 @@ It includes the following:
 - Start the development server:
 
   ```sh
-  npm start
+  npm run server
   ```
 
 - Build and run iOS and Android development builds:

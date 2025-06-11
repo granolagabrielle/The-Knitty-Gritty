@@ -40,6 +40,6 @@ app.use((err: any, req: express.Request, res: express.Response, next: express.Ne
 });
 
 // Listen Server & Port
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`Listening on port: ${PORT}`);
 });
