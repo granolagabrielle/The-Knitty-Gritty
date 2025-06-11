@@ -1,25 +1,43 @@
-import { Text } from '@react-navigation/elements';
-import { StyleSheet, View } from 'react-native';
+// import { Text } from '@react-navigation/elements';
+import { StyleSheet, View, Image, Text } from 'react-native';
 
 export default function InventoryItem({ item }) {
   return (
-    <View style={styles.card} key={item.id}>
-      <Text>{item.name}</Text>
+    <View style={styles.card}>
+      <Image style={styles.image} source={require('../assets/yarn.png')} />
+      <View>
+        <View>
+          <Text style={styles.name}>{item.name}</Text>
+          <Text style={styles.secondaryText}>color and dye lot</Text>
+          <Text style={styles.secondaryText}># grams in stash</Text>
+          <Text style={styles.secondaryText}>possibly more text here</Text>
+        </View>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   card: {
-    padding: 20,
-    margin: 10,
-    backgroundColor: '#f9f9f9',
-    borderRadius: 10,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    width: '90%',
+    flexDirection: 'row',
+    backgroundColor: 'transparent',
+    alignItems: 'center',
+  },
+
+  name: {
+    fontSize: 16,
+    fontWeight: '400',
+    color: 'black',
+    marginBottom: 2,
+  },
+  secondaryText: {
+    fontSize: 14,
+    color: 'grey',
+  },
+  image: {
+    width: 50,
+    height: 75,
+    borderRadius: 4,
+    marginRight: 14,
   },
 });

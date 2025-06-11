@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useAppDispatch } from '../../redux/store';
 import { useSelector } from 'react-redux';
 import { selectYarnColumnNames, selectYarnItems } from '../../redux/yarnSlice';
 import { fetchYarn, fetchYarnColumnNames } from '../../redux/yarnActions';
-import InventoryItem from '../../components/InventoryItem';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import Swipeable from 'react-native-gesture-handler/ReanimatedSwipeable';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import Swipeable from '../../components/Swipable';
 
 export function YarnInventory() {
   const dispatch = useAppDispatch();
@@ -32,14 +32,18 @@ export function YarnInventory() {
   };
 
   return (
-    <>
-      <View style={styles.container}>
-        {yarnItems.map((item) => (
-          <InventoryItem item={item} key={item.id} />
-        ))}
-      </View>
-      <CustomButton title={'Add Yarn'} onPress={onPress} />
-    </>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container} edges={['top']}>
+        <ScrollView>
+          <View>
+            {yarnItems.map((item) => (
+              <Swipeable item={item} key={item.id} />
+            ))}
+          </View>
+          <CustomButton title={'Add Yarn'} onPress={onPress} />
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -48,7 +52,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 10,
     width: '100%',
   },
 });

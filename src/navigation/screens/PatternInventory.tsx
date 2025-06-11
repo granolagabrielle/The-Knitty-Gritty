@@ -1,13 +1,14 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useAppDispatch } from '../../redux/store';
 import { useSelector } from 'react-redux';
 import { selectPatternColumnNames, selectPatternItems } from '../../redux/patternSlice';
-import InventoryItem from '../../components/InventoryItem';
 import { fetchPatternColumnNames, fetchPatterns } from '../../redux/patternActions';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
+import InventoryItem from '../../components/Swipable';
 
 export function PatternInventory() {
   const dispatch = useAppDispatch();
@@ -31,14 +32,18 @@ export function PatternInventory() {
   };
 
   return (
-    <>
-      <View style={styles.container}>
-        {patternItems.map((item) => (
-          <InventoryItem item={item} key={item.id} />
-        ))}
-      </View>
-      <CustomButton title={'Add Pattern'} onPress={onPress} />
-    </>
+    <SafeAreaProvider>
+      <SafeAreaView style={styles.container} edges={['top']}>
+        <ScrollView>
+          <View>
+            {patternItems.map((item) => (
+              <InventoryItem item={item} key={item.id} />
+            ))}
+          </View>
+          <CustomButton title={'Add Pattern'} onPress={onPress} />
+        </ScrollView>
+      </SafeAreaView>
+    </SafeAreaProvider>
   );
 }
 
@@ -47,7 +52,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    gap: 10,
     width: '100%',
   },
 });
