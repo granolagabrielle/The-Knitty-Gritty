@@ -1,5 +1,5 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { HeaderButton, Text } from '@react-navigation/elements';
+import { HeaderButton, HeaderTitle } from '@react-navigation/elements';
 import { createStaticNavigation, StaticParamList } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Image } from 'react-native';
@@ -12,6 +12,7 @@ import { YarnInventory } from './screens/YarnInventory';
 import { ProjectsInventory } from './screens/ProjectsInventory';
 import { PatternInventory } from './screens/PatternInventory';
 import { Form } from './screens/Form';
+import { Text } from 'react-native';
 
 const HomeTabs = createBottomTabNavigator({
   screens: {
@@ -80,6 +81,9 @@ const HomeTabs = createBottomTabNavigator({
       },
     },
   },
+  screenOptions: {
+    tabBarActiveTintColor: '#4E6151',
+  },
 });
 
 const RootStack = createNativeStackNavigator({
@@ -116,9 +120,14 @@ const RootStack = createNativeStackNavigator({
     },
     Form: {
       screen: Form,
-      options: ({ route }) => ({
-        headerShown: true,
-        title: route.params?.title || 'Form',
+      options: (props: any) => ({
+        presentation: 'modal',
+        headerRight: () => (
+          <HeaderButton onPress={props.navigation.goBack}>
+            <Text>Close</Text>
+          </HeaderButton>
+        ),
+        headerTitle: props.route.params?.title,
       }),
     },
   },
@@ -126,8 +135,8 @@ const RootStack = createNativeStackNavigator({
 
 export const Navigation = createStaticNavigation(RootStack);
 
-type RootStackParamList = StaticParamList<typeof RootStack> & {
-  Form: { title: string; columns: string[] };
+export type RootStackParamList = {
+  Form: { title: string; columnNames: string[]; type: string };
 };
 
 declare global {
