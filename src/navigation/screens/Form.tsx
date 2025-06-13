@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
-import { useRoute, RouteProp } from '@react-navigation/native';
+import { useRoute, RouteProp, useNavigation } from '@react-navigation/native';
 import CustomButton from '../../components/CustomButton';
 import { useAppDispatch } from '../../redux/store';
 import { addYarn } from '../../redux/yarnActions';
@@ -17,6 +17,7 @@ export function Form() {
   const route = useRoute<FormRouteProp>();
   const { columnNames, type } = route.params;
   const dispatch = useAppDispatch();
+  const navigation = useNavigation();
 
   const [formData, setFormData] = useState<{ [key: string]: string }>({});
 
@@ -30,10 +31,13 @@ export function Form() {
   const onPress = () => {
     if (type === 'yarn') {
       dispatch(addYarn(formData));
+      navigation.goBack();
     } else if (type === 'pattern') {
       dispatch(addPattern(formData));
+      navigation.goBack();
     } else if (type === 'project') {
       dispatch(addProjects(formData));
+      navigation.goBack();
     }
   };
   return (
@@ -47,7 +51,7 @@ export function Form() {
           onChangeText={(text) => handleInputChange(name, text)}
         />
       ))}
-      <CustomButton title='Add' onPress={onPress}></CustomButton>
+      <CustomButton title='Submit' onPress={onPress}></CustomButton>
     </View>
   );
 }

@@ -9,14 +9,14 @@ import CustomButton from '../../components/CustomButton';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import InventoryItem from '../../components/Swipable';
+import { RootStackParamList } from '../index';
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Form'>;
 
 export function ProjectsInventory() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<NavigationProp>();
   const projectItems = useSelector(selectProjectItems);
   const projectColumnNames = useSelector(selectProjectColumnNames);
-
-  type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'ProjectInventory'>;
 
   useEffect(() => {
     dispatch(fetchProjects());
@@ -25,7 +25,7 @@ export function ProjectsInventory() {
 
   const onPress = () => {
     navigation.navigate('Form', {
-      title: 'Add Project',
+      title: 'Start New Project',
       columnNames: projectColumnNames,
       type: 'project',
     });
@@ -41,7 +41,7 @@ export function ProjectsInventory() {
             ))}
           </View>
         </ScrollView>
-        <CustomButton title={'Add Project'} onPress={onPress} />
+        <CustomButton title={'Start New Project'} onPress={onPress} />
       </SafeAreaView>
     </SafeAreaProvider>
   );

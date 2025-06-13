@@ -8,7 +8,6 @@ pool.on('connect', () => {
 });
 
 router.get('/', (req: Request, res: Response) => {
-  console.log('GET /api/patterns endpoint hit');
   const queryText = `SELECT * FROM pattern_inventory;`;
 
   pool
@@ -37,7 +36,6 @@ router.get('/db', (req: Request, res: Response) => {
 });
 
 router.post('/', (req: Request, res: Response) => {
-  console.log('POST /api/patterns endpoint hit', req.body);
   const newPattern = req.body;
   const queryText = `INSERT INTO pattern_inventory (name) VALUES ($1);`;
   pool
