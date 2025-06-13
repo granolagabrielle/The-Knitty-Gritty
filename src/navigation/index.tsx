@@ -80,6 +80,9 @@ const HomeTabs = createBottomTabNavigator({
       },
     },
   },
+  screenOptions: {
+    tabBarActiveTintColor: '#4E6151',
+  },
 });
 
 const RootStack = createNativeStackNavigator({

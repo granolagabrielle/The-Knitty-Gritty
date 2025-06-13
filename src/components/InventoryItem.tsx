@@ -23,7 +23,6 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     alignItems: 'center',
   },
-
   name: {
     fontSize: 16,
     fontWeight: '400',

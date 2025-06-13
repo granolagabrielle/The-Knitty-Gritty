@@ -40,8 +40,8 @@ export function ProjectsInventory() {
               <InventoryItem item={item} key={item.id} />
             ))}
           </View>
-          <CustomButton title={'Add Project'} onPress={onPress} />
         </ScrollView>
+        <CustomButton title={'Add Project'} onPress={onPress} />
       </SafeAreaView>
     </SafeAreaProvider>
   );
@@ -53,5 +53,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
+    backgroundColor: '#D2DAD2',
   },
 });
