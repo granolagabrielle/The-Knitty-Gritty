@@ -110,6 +110,22 @@ router.post('/', (req: Request, res: Response) => {
 // update yarn details
 
 // mark yarn as favorite
+router.put('/favorite/:id', (req: Request, res: Response) => {
+  console.log('marking yarn as fav, check req.body', req.body);
+  const queryText = `
+  UPDATE "yarn_inventory"
+    SET "is_favorite" = TRUE
+    WHERE "id"=$1;`;
+  pool
+    .query(queryText, [req.params.id])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error('Error marking yarn as favorite', error);
+      res.sendStatus(500);
+    });
+});
 
 router.delete('/:id', (req: Request, res: Response) => {
   console.log('in yarn delete router, check req.body', req.body);
