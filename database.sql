@@ -46,8 +46,8 @@ CREATE TABLE "yarn_inventory" (
   "total_grams" INT,
 	"dye_lot" VARCHAR (100),
 	"user_id" INT REFERENCES "users" ("id"),
-  "isFavorite" BOOLEAN DEFAULT FALSE,
-  "isDeleted" BOOLEAN DEFAULT FALSE
+  "is_favorite" BOOLEAN DEFAULT FALSE,
+  "is_deleted" BOOLEAN DEFAULT FALSE
   "purchase_location" VARCHAR
 );
 
@@ -59,8 +59,8 @@ CREATE TABLE "pattern_inventory" (
 	"difficulty_level" INT REFERENCES "pattern_difficulties" ("id"),
 	"yarn_weight" INT REFERENCES "yarn_weights" ("id"),
 	"user_id" INT REFERENCES "users" ("id"),
-  "isFavorite" BOOLEAN DEFAULT FALSE,
-  "isDeleted" BOOLEAN DEFAULT FALSE
+  "is_favorite" BOOLEAN DEFAULT FALSE,
+  "is_deleted" BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE "project_tracking" (
@@ -72,8 +72,8 @@ CREATE TABLE "project_tracking" (
 "needle_size" INT,
 	"yarn_id" INT REFERENCES "yarn_inventory" ("id"),
 	"user_id" INT REFERENCES "users" ("id"),
-  "isFavorite" BOOLEAN DEFAULT FALSE,
-  "isDeleted" BOOLEAN DEFAULT FALSE
+  "is_favorite" BOOLEAN DEFAULT FALSE,
+  "is_deleted" BOOLEAN DEFAULT FALSE
 );
 
 CREATE TABLE "project_notes" (

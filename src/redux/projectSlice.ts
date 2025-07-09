@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from './store';
+import { Project } from './types';
 
 interface ProjectState {
-  items: any[];
+  items: Project[];
   columnNames: string[];
 }
 
@@ -15,10 +16,10 @@ export const projectSlice = createSlice({
   name: 'projects',
   initialState,
   reducers: {
-    setProjectItems: (state, action: PayloadAction<any[]>) => {
+    setProjectItems: (state, action: PayloadAction<Project[]>) => {
       state.items = action.payload;
     },
-    setProjectColumnNames: (state, action: PayloadAction<any[]>) => {
+    setProjectColumnNames: (state, action: PayloadAction<string[]>) => {
       state.columnNames = action.payload;
     },
   },

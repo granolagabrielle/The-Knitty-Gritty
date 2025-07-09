@@ -4,5 +4,6 @@
     "moduleResolution": "bundler",
     "strict": true,
     "esModuleInterop": true
-  }
+  },
+  "include": ["types.d.ts", "src/**/*", "server/**/*"]
 }

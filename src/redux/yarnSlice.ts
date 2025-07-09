@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../redux/store';
+import { Yarn } from './types';
 
 interface YarnState {
-  items: any[];
+  items: Yarn[];
   columnNames: string[];
 }
 
@@ -15,10 +16,10 @@ export const yarnSlice = createSlice({
   name: 'yarn',
   initialState,
   reducers: {
-    setYarnItems: (state, action: PayloadAction<any[]>) => {
+    setYarnItems: (state, action: PayloadAction<Yarn[]>) => {
       state.items = action.payload;
     },
-    setYarnColumnNames: (state, action: PayloadAction<any[]>) => {
+    setYarnColumnNames: (state, action: PayloadAction<string[]>) => {
       state.columnNames = action.payload;
     },
   },
