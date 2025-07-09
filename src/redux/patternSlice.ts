@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { RootState } from '../redux/store';
+import { Pattern } from './types';
 
 interface PatternState {
-  items: any[];
+  items: Pattern[];
   columnNames: string[];
 }
 
@@ -15,10 +16,10 @@ export const patternSlice = createSlice({
   name: 'patterns',
   initialState,
   reducers: {
-    setPatternItems: (state, action: PayloadAction<any[]>) => {
+    setPatternItems: (state, action: PayloadAction<Pattern[]>) => {
       state.items = action.payload;
     },
-    setPatternColumnNames: (state, action: PayloadAction<any[]>) => {
+    setPatternColumnNames: (state, action: PayloadAction<string[]>) => {
       state.columnNames = action.payload;
     },
   },

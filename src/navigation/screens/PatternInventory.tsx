@@ -6,17 +6,18 @@ import { selectPatternColumnNames, selectPatternItems } from '../../redux/patter
 import { fetchPatternColumnNames, fetchPatterns } from '../../redux/patternActions';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import type { RootStackParamList } from '../index';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import InventoryItem from '../../components/Swipable';
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Form'>;
 
 export function PatternInventory() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<NavigationProp>();
   const patternItems = useSelector(selectPatternItems);
   const patternColumnNames = useSelector(selectPatternColumnNames);
-
-  type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'PatternInventory'>;
 
   useEffect(() => {
     dispatch(fetchPatterns());

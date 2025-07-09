@@ -6,17 +6,18 @@ import { selectYarnColumnNames, selectYarnItems } from '../../redux/yarnSlice';
 import { fetchYarn, fetchYarnColumnNames } from '../../redux/yarnActions';
 import CustomButton from '../../components/CustomButton';
 import { useNavigation } from '@react-navigation/native';
+import type { RootStackParamList } from '../index';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import Swipeable from '../../components/Swipable';
+
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Form'>;
 
 export function YarnInventory() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<NavigationProp>();
   const yarnItems = useSelector(selectYarnItems);
   const yarnColumnNames = useSelector(selectYarnColumnNames);
-
-  type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'YarnInventory'>;
 
   useEffect(() => {
     dispatch(fetchYarn());

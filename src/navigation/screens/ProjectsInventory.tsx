@@ -10,6 +10,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import InventoryItem from '../../components/Swipable';
 import { RootStackParamList } from '../index';
+
 type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'Form'>;
 
 export function ProjectsInventory() {
