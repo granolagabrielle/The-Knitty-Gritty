@@ -1,4 +1,3 @@
-/// <reference path="../../types.d.ts" />
 import express, { Request, Response } from 'express';
 import pool from '../modules/pool';
 
@@ -71,9 +70,9 @@ router.get('/:id', (req: Request, res: Response) => {
   ON yarn_brands.id=yarn_inventory.brand
   JOIN yarn_weights
   ON yarn_weights.id=yarn_inventory.weight
-  WHERE user_id=$1 AND yarn_inventory.id=$2;`;
+  WHERE yarn_inventory.id=$1;`;
   pool
-    .query(queryText, [req.user.id, req.params.id])
+    .query(queryText, [req.params.id])
     .then((result) => {
       res.send(result.rows);
     })
