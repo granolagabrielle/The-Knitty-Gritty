@@ -3,6 +3,7 @@ import pool from '../modules/pool';
 
 const router = express.Router();
 
+// get column names for adding new pattern
 router.get('/db', (req: Request, res: Response) => {
   const queryText = `SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME = 'pattern_inventory';`;
   pool
@@ -81,6 +82,7 @@ router.get('/:id', (req: Request, res: Response) => {
     });
 });
 
+// add new pattern
 router.post('/', (req: Request, res: Response) => {
   const newPattern = req.body;
   const queryText = `INSERT INTO pattern_inventory (title, pattern_designer, pattern_type, difficulty_level, yarn_weight) VALUES ($1, $2, $3, $4, $5);`;
@@ -101,6 +103,9 @@ router.post('/', (req: Request, res: Response) => {
     });
 });
 
+// TODO: update pattern
+
+// mark pattern as favorite
 router.put('/favorite/:id', (req: Request, res: Response) => {
   console.log('marking pattern as fav, check req.body', req.body);
   const queryText = `
@@ -118,6 +123,25 @@ router.put('/favorite/:id', (req: Request, res: Response) => {
     });
 });
 
+// remove pattern as favorite
+router.put('/unfavorite/:id', (req: Request, res: Response) => {
+  console.log('marking pattern as fav, check req.body', req.body);
+  const queryText = `
+  UPDATE "pattern_inventory"
+    SET "is_favorite" = FALSE
+    WHERE "id"=$1;`;
+  pool
+    .query(queryText, [req.params.id])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error('Error marking pattern as favorite', error);
+      res.sendStatus(500);
+    });
+});
+
+// delete pattern
 router.delete('/:id', (req: Request, res: Response) => {
   console.log('in pattern delete router, check req.body', req.body);
   const queryText = `DELETE FROM pattern_inventory WHERE "id"=$1;`;
