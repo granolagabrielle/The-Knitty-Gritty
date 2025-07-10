@@ -127,8 +127,8 @@ router.put('/favorite/:id', (req: Request, res: Response) => {
 });
 
 // remove project as favorite
-router.put('/favorite/:id', (req: Request, res: Response) => {
-  console.log('marking project as fav, check req.body', req.body);
+router.put('/unfavorite/:id', (req: Request, res: Response) => {
+  console.log('removing project as fav, check req.body', req.body);
   const queryText = `
   UPDATE "project_tracking"
     SET "is_favorite" = FALSE
@@ -139,7 +139,7 @@ router.put('/favorite/:id', (req: Request, res: Response) => {
       res.sendStatus(200);
     })
     .catch((error) => {
-      console.error('Error marking project as favorite', error);
+      console.error('Error removing project as favorite', error);
       res.sendStatus(500);
     });
 });

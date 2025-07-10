@@ -5,7 +5,6 @@ import path from 'path';
 import yarnRouter from './routes/yarns';
 import patternRouter from './routes/patterns';
 import projectRouter from './routes/projects';
-import fiberRouter from './routes/fibers';
 
 dotenv.config();
 
@@ -29,7 +28,6 @@ app.use(express.static('build'));
 app.use('/api/yarn', yarnRouter);
 app.use('/api/patterns', patternRouter);
 app.use('/api/projects', projectRouter);
-app.use('/api/fibers', fiberRouter);
 
 // Catch-all route to serve React app
 app.get('*', (req, res) => {

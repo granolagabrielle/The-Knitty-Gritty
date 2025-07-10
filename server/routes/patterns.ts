@@ -125,7 +125,7 @@ router.put('/favorite/:id', (req: Request, res: Response) => {
 
 // remove pattern as favorite
 router.put('/unfavorite/:id', (req: Request, res: Response) => {
-  console.log('marking pattern as fav, check req.body', req.body);
+  console.log('removing pattern as fav, check req.body', req.body);
   const queryText = `
   UPDATE "pattern_inventory"
     SET "is_favorite" = FALSE
@@ -136,7 +136,7 @@ router.put('/unfavorite/:id', (req: Request, res: Response) => {
       res.sendStatus(200);
     })
     .catch((error) => {
-      console.error('Error marking pattern as favorite', error);
+      console.error('Error removing pattern as favorite', error);
       res.sendStatus(500);
     });
 });
@@ -152,6 +152,78 @@ router.delete('/:id', (req: Request, res: Response) => {
     })
     .catch((error) => {
       console.error('Error deleting pattern', error);
+      res.sendStatus(500);
+    });
+});
+
+// get all pattern types
+router.get('/types', (req: Request, res: Response) => {
+  const queryText = `SELECT * FROM pattern_types;`;
+  pool
+    .query(queryText)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.error('Error getting pattern types', error);
+      res.sendStatus(500);
+    });
+});
+
+// add pattern type
+router.post('/types', (req: Request, res: Response) => {
+  const newType = req.body;
+  const queryText = `INSERT INTO pattern_types (type) VALUES ($1);`;
+  pool
+    .query(queryText, [newType.type])
+    .then((result) => {
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.error('Error adding pattern type', error);
+      res.sendStatus(500);
+    });
+});
+
+// get all difficulty levels
+router.get('/difficulties', (req: Request, res: Response) => {
+  const queryText = `SELECT * FROM difficulty_levels;`;
+  pool
+    .query(queryText)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.error('Error getting difficulty levels', error);
+      res.sendStatus(500);
+    });
+});
+
+// get all designers
+router.get('/designers', (req: Request, res: Response) => {
+  const queryText = `SELECT * FROM pattern_designers;`;
+  pool
+    .query(queryText)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.error('Error getting designers', error);
+      res.sendStatus(500);
+    });
+});
+
+// add new designer
+router.post('/designers', (req: Request, res: Response) => {
+  const newDesigner = req.body;
+  const queryText = `INSERT INTO pattern_designers (name) VALUES ($1);`;
+  pool
+    .query(queryText, [newDesigner.name])
+    .then((result) => {
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.error('Error adding new designer', error);
       res.sendStatus(500);
     });
 });
