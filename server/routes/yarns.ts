@@ -48,41 +48,6 @@ router.get('/', (req: Request, res: Response) => {
     });
 });
 
-// get details for one selected yarn
-router.get('/:id', (req: Request, res: Response) => {
-  const queryText = `
-   SELECT 
- yarn_inventory.id,
-  yarn_inventory.title, 
-  yarn_inventory.skeins, 
-  yarn_inventory.skein_grams, 
-  yarn_inventory.total_grams, 
-  yarn_inventory.dye_lot, 
-  yarn_inventory.is_favorite, 
-  yarn_inventory.is_deleted, 
-  yarn_inventory.purchase_location,
-  yarn_fibers.fiber AS fiber,
-  yarn_brands.name AS brand,
-  yarn_weights.weight AS weight
-  FROM yarn_inventory 
-  JOIN yarn_fibers 
-  ON yarn_fibers.id=yarn_inventory.fiber
-  JOIN yarn_brands 
-  ON yarn_brands.id=yarn_inventory.brand
-  JOIN yarn_weights
-  ON yarn_weights.id=yarn_inventory.weight
-  WHERE yarn_inventory.id=$1;`;
-  pool
-    .query(queryText, [req.params.id])
-    .then((result) => {
-      res.send(result.rows);
-    })
-    .catch((error) => {
-      console.error('Error executing query', error);
-      res.sendStatus(500);
-    });
-});
-
 // add new yarn
 router.post('/', (req: Request, res: Response) => {
   const newYarn = req.body;
@@ -111,60 +76,9 @@ router.post('/', (req: Request, res: Response) => {
 
 // update yarn details
 
-// mark yarn as favorite
-router.put('/favorite/:id', (req: Request, res: Response) => {
-  console.log('marking yarn as fav, check req.body', req.body);
-  const queryText = `
-  UPDATE "yarn_inventory"
-    SET "is_favorite" = TRUE
-    WHERE "id"=$1;`;
-  pool
-    .query(queryText, [req.params.id])
-    .then(() => {
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.error('Error marking yarn as favorite', error);
-      res.sendStatus(500);
-    });
-});
-
-// remove yarn as favorite
-router.put('/unfavorite/:id', (req: Request, res: Response) => {
-  console.log('removing yarn as fav, check req.body', req.body);
-  const queryText = `
-  UPDATE "yarn_inventory"
-    SET "is_favorite" = FALSE
-    WHERE "id"=$1;`;
-  pool
-    .query(queryText, [req.params.id])
-    .then(() => {
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.error('Error removing yarn as favorite', error);
-      res.sendStatus(500);
-    });
-});
-
-// delete yarn
-router.delete('/:id', (req: Request, res: Response) => {
-  console.log('in yarn delete router, check req.body', req.body);
-  const queryText = `DELETE FROM yarn_inventory WHERE "id"=$1;`;
-  pool
-    .query(queryText, [req.params.id])
-    .then(() => {
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.error('Error deleting yarn', error);
-      res.sendStatus(500);
-    });
-});
-
 // get all fiber types
 router.get('/fiber', (req: Request, res: Response) => {
-  const queryText = `SELECT * FROM fibers;`;
+  const queryText = `SELECT * FROM yarn_fibers;`;
   pool
     .query(queryText)
     .then((result) => {
@@ -245,6 +159,92 @@ router.post('/brands', (req: Request, res: Response) => {
     })
     .catch((error) => {
       console.error('Error adding new yarn brand', error);
+      res.sendStatus(500);
+    });
+});
+
+// mark yarn as favorite
+router.put('/favorite/:id', (req: Request, res: Response) => {
+  console.log('marking yarn as fav, check req.body', req.body);
+  const queryText = `
+  UPDATE "yarn_inventory"
+    SET "is_favorite" = TRUE
+    WHERE "id"=$1;`;
+  pool
+    .query(queryText, [req.params.id])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error('Error marking yarn as favorite', error);
+      res.sendStatus(500);
+    });
+});
+
+// remove yarn as favorite
+router.put('/unfavorite/:id', (req: Request, res: Response) => {
+  console.log('removing yarn as fav, check req.body', req.body);
+  const queryText = `
+  UPDATE "yarn_inventory"
+    SET "is_favorite" = FALSE
+    WHERE "id"=$1;`;
+  pool
+    .query(queryText, [req.params.id])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error('Error removing yarn as favorite', error);
+      res.sendStatus(500);
+    });
+});
+
+// get details for one selected yarn
+router.get('/:id', (req: Request, res: Response) => {
+  const queryText = `
+   SELECT 
+ yarn_inventory.id,
+  yarn_inventory.title, 
+  yarn_inventory.skeins, 
+  yarn_inventory.skein_grams, 
+  yarn_inventory.total_grams, 
+  yarn_inventory.dye_lot, 
+  yarn_inventory.is_favorite, 
+  yarn_inventory.is_deleted, 
+  yarn_inventory.purchase_location,
+  yarn_fibers.fiber AS fiber,
+  yarn_brands.name AS brand,
+  yarn_weights.weight AS weight
+  FROM yarn_inventory 
+  JOIN yarn_fibers 
+  ON yarn_fibers.id=yarn_inventory.fiber
+  JOIN yarn_brands 
+  ON yarn_brands.id=yarn_inventory.brand
+  JOIN yarn_weights
+  ON yarn_weights.id=yarn_inventory.weight
+  WHERE yarn_inventory.id=$1;`;
+  pool
+    .query(queryText, [req.params.id])
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((error) => {
+      console.error('Error executing query', error);
+      res.sendStatus(500);
+    });
+});
+
+// delete yarn
+router.delete('/:id', (req: Request, res: Response) => {
+  console.log('in yarn delete router, check req.body', req.body);
+  const queryText = `DELETE FROM yarn_inventory WHERE "id"=$1;`;
+  pool
+    .query(queryText, [req.params.id])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch((error) => {
+      console.error('Error deleting yarn', error);
       res.sendStatus(500);
     });
 });
