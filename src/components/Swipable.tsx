@@ -28,7 +28,7 @@ function RightAction(prog: SharedValue<number>, drag: SharedValue<number>) {
   );
 }
 
-export default function Swipeable({ item }) {
+export default function Swipeable({ item, type }) {
   const { height: windowHeight, width: windowWidth } = useWindowDimensions();
   const itemHeight = Math.min(Math.max(windowHeight * 0.12, 60), 120);
   const itemWidth = windowWidth - 32;
@@ -42,7 +42,7 @@ export default function Swipeable({ item }) {
         rightThreshold={40}
         renderRightActions={RightAction}
       >
-        <InventoryItem item={item} />
+        <InventoryItem item={item} type={type} />
       </ReanimatedSwipeable>
     </GestureHandlerRootView>
   );

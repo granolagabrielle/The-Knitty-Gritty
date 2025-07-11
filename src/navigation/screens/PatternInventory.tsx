@@ -38,7 +38,7 @@ export function PatternInventory() {
         <ScrollView>
           <View>
             {patternItems.map((item) => (
-              <InventoryItem item={item} key={item.id} />
+              <InventoryItem item={item} key={item.id} type={'pattern'} />
             ))}
           </View>
         </ScrollView>

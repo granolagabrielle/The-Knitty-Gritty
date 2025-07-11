@@ -38,7 +38,7 @@ export function ProjectsInventory() {
         <ScrollView>
           <View>
             {projectItems.map((item) => (
-              <InventoryItem item={item} key={item.id} />
+              <InventoryItem item={item} key={item.id} type={'project'} />
             ))}
           </View>
         </ScrollView>

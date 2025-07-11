@@ -17,6 +17,7 @@ export function YarnInventory() {
   const dispatch = useAppDispatch();
   const navigation = useNavigation<NavigationProp>();
   const yarnItems = useSelector(selectYarnItems);
+  console.log('check yarnItems', yarnItems);
   const yarnColumnNames = useSelector(selectYarnColumnNames);
 
   useEffect(() => {
@@ -38,7 +39,7 @@ export function YarnInventory() {
         <ScrollView>
           <View>
             {yarnItems.map((item) => (
-              <Swipeable item={item} key={item.id} />
+              <Swipeable item={item} key={item.id} type={'yarn'} />
             ))}
           </View>
         </ScrollView>

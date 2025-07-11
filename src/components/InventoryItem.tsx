@@ -1,18 +1,45 @@
 // import { Text } from '@react-navigation/elements';
 import { StyleSheet, View, Image, Text } from 'react-native';
 
-export default function InventoryItem({ item }) {
+export default function InventoryItem({ item, type }) {
+  let inventoryContent;
+
+  switch (type) {
+    case 'yarn':
+      inventoryContent = (
+        <View>
+          <Text style={styles.name}>{item.title}</Text>
+          <Text style={styles.secondaryText}>{item.brand}</Text>
+          <Text style={styles.secondaryText}>{item.weight} weight</Text>
+          <Text style={styles.secondaryText}>{item.total_grams} grams in stash</Text>
+        </View>
+      );
+      break;
+    case 'pattern':
+      inventoryContent = (
+        <View>
+          <Text style={styles.name}>{item.title}</Text>
+          <Text style={styles.secondaryText}>{item.pattern_designer}</Text>
+          <Text style={styles.secondaryText}>{item.yarn_weight} weight needed</Text>
+        </View>
+      );
+      break;
+    case 'project':
+      inventoryContent = (
+        <View>
+          <Text style={styles.name}>{item.title}</Text>
+          <Text style={styles.secondaryText}>Started on {item.date_started}</Text>
+          <Text style={styles.secondaryText}>Percentage done here</Text>
+          <Text style={styles.secondaryText}>possibly more text here</Text>
+        </View>
+      );
+      break;
+  }
+
   return (
     <View style={styles.card}>
       <Image style={styles.image} source={require('../assets/yarn.png')} />
-      <View>
-        <View>
-          <Text style={styles.name}>{item.name}</Text>
-          <Text style={styles.secondaryText}>color and dye lot</Text>
-          <Text style={styles.secondaryText}># grams in stash</Text>
-          <Text style={styles.secondaryText}>possibly more text here</Text>
-        </View>
-      </View>
+      <View>{inventoryContent}</View>
     </View>
   );
 }

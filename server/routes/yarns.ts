@@ -74,8 +74,6 @@ router.post('/', (req: Request, res: Response) => {
     });
 });
 
-// update yarn details
-
 // get all fiber types
 router.get('/fiber', (req: Request, res: Response) => {
   const queryText = `SELECT * FROM yarn_fibers;`;
@@ -248,5 +246,7 @@ router.delete('/:id', (req: Request, res: Response) => {
       res.sendStatus(500);
     });
 });
+
+// TODO: allow for addition of new skeins? any other updates?
 
 export default router;
